@@ -25,6 +25,7 @@ export default defineConfig(async ({ mode }) => {
         resolve: {
             alias: {
                 '@': resolve(__dirname, 'src'),
+                // CodeMirror compatibility aliases
                 '@codemirror/state': resolve(__dirname, '../../node_modules/@codemirror/state'),
                 '@codemirror/view': resolve(__dirname, '../../node_modules/@codemirror/view'),
                 '@codemirror/language': resolve(__dirname, '../../node_modules/@codemirror/language'),
@@ -39,15 +40,31 @@ export default defineConfig(async ({ mode }) => {
         },
         root: resolve(__dirname),
         optimizeDeps: {
-            include: ['book-generator-react-json-view']
+            include: [
+                'book-generator-react-json-view',
+                '@xyflow/react',
+                '@emotion/react',
+                '@emotion/styled',
+                '@mui/material',
+                'motion'
+            ]
         },
         build: {
             outDir: './build',
+            sourcemap: mode === 'development',
             commonjsOptions: {
                 include: [/book-generator-react-json-view/, /node_modules/]
             },
             rollupOptions: {
-                treeshake: false
+                output: {
+                    manualChunks: {
+                        vendor: ['react', 'react-dom', 'react-router-dom'],
+                        mui: ['@mui/material', '@mui/icons-material'],
+                        flow: ['@xyflow/react'],
+                        charts: ['recharts'],
+                        editor: ['@uiw/react-codemirror', '@tiptap/react']
+                    }
+                }
             }
         },
         server: {
@@ -55,6 +72,9 @@ export default defineConfig(async ({ mode }) => {
             proxy,
             port: process.env.VITE_PORT ?? 8080,
             host: process.env.VITE_HOST
+        },
+        preview: {
+            port: 8080
         }
     }
 })
