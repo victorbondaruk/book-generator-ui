@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { enqueueSnackbar as enqueueSnackbarAction, closeSnackbar as closeSnackbarAction, SET_CHATFLOW } from '@/store/actions'
-import { SketchPicker } from 'react-color'
+import { HexColorPicker } from 'react-colorful'
 import PropTypes from 'prop-types'
 
 import { Card, Box, Typography, Button, Switch, OutlinedInput, Popover, Stack, IconButton } from '@mui/material'
@@ -561,7 +561,7 @@ const ShareChatbot = ({ isSessionMemory, isAgentCanvas }) => {
                     horizontal: 'left'
                 }}
             >
-                <SketchPicker color={sketchPickerColor} onChange={(color) => onColorSelected(color.hex)} />
+                <HexColorPicker color={sketchPickerColor} onChange={(color) => onColorSelected(color)} />
             </Popover>
             <Popover
                 open={openCopyPopOver}
