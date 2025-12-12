@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback, useContext } from 'react'
-import ReactFlow, { addEdge, Controls, Background, useNodesState, useEdgesState } from 'reactflow'
-import 'reactflow/dist/style.css'
+import { ReactFlow, addEdge, Controls, Background, useNodesState, useEdgesState } from '@xyflow/react'
+import '@xyflow/react/dist/style.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
